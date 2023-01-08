@@ -2,7 +2,9 @@ package moneycalculator.controller;
 
 import java.util.List;
 import moneycalculator.model.Currency;
+import moneycalculator.model.ExchangeRate;
 import moneycalculator.persistence.files.CurrencyLoaderFromFile;
+import moneycalculator.persistence.rest.ExchangeRateLoaderFromWebService;
 
 public class MoneyCalculator {
 
@@ -12,8 +14,17 @@ public class MoneyCalculator {
         
         List<Currency> currenciesList = currencyLoaderFromFile.currencyLoader();
         
-        for (Currency currency: currenciesList) System.out.println(currency.getCode());
-        
-    }
+        for (Currency currency: currenciesList) System.out.println(currency.getCode() + " - " + currency.getName() + " - " + currency.getSymbol());
     
+        ExchangeRateLoaderFromWebService exchangeRateLoaderFromWebService = new ExchangeRateLoaderFromWebService();
+        
+        for (Currency from: currenciesList) {
+            for (Currency to: currenciesList) {
+                if (!from.getCode().equals(to.getCode())) {
+                    ExchangeRate exchangeRate = exchangeRateLoaderFromWebService.exchangerateLoader(from, to);
+                    System.out.println("Rate from " + exchangeRate.getFrom().getCode() + " to " + exchangeRate.getTo().getCode() + ": " + exchangeRate.getRate());
+                }
+            }
+        }  
+    }
 }

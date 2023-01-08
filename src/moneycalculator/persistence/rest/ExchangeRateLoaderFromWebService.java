@@ -26,7 +26,7 @@ public class ExchangeRateLoaderFromWebService implements ExchangeRateLoader {
     }
     
     private Double read(String codeFrom, String codeTo) throws MalformedURLException, IOException {
-        String line = read(new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" + codeFrom + "/" + codeTo + ".json"));
+        String line = read(new URL("https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/" + codeFrom.toLowerCase() + "/" + codeTo.toLowerCase() + ".json"));
         return Double.parseDouble(getStringRateFromJSONLine(line));
     }
 
