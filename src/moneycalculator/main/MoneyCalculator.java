@@ -1,10 +1,11 @@
-package moneycalculator.controller;
+package moneycalculator.main;
 
 import java.util.List;
 import moneycalculator.model.Currency;
 import moneycalculator.model.ExchangeRate;
 import moneycalculator.persistence.files.CurrencyLoaderFromFile;
 import moneycalculator.persistence.rest.ExchangeRateLoaderFromWebService;
+import moneycalculator.view.swing.MoneyCalculatorSwing;
 
 public class MoneyCalculator {
 
@@ -26,5 +27,7 @@ public class MoneyCalculator {
                 }
             }
         }  
+        
+        new MoneyCalculatorSwing(currenciesList, exchangeRateLoaderFromWebService);
     }
 }
